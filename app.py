@@ -10,7 +10,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-	return render_template('index.html', zhengwen=blogpost.content)
+	return render_template(
+		'index.html', 
+		content=blogpost.content, 
+		title= blogpost.title, 
+		post_date=(blogpost.created_at).strftime('%Y.%m.%d')
+		)
 
 #if __name__ == '__main__':
 #    app.debug = True
@@ -24,7 +29,7 @@ class BlogPost(Object):
 	def title(self):
 	    return self.get('title')
 
-	
-	
+
 query = Query(BlogPost)
 blogpost = query.get('562c41f960b2804578347f97')
+print blogpost.created_at
